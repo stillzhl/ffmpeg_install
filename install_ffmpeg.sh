@@ -1,6 +1,7 @@
 #!/bin/bash
  
-# Bash script to install latest version of ffmpeg and its dependencies on Ubuntu 12.04 or 14.04
+# Bash script to install latest version of ffmpeg and 
+# its dependencies on Ubuntu 12.04 or 14.04
 # Inspired from https://gist.github.com/faleev/3435377
  
 # Remove any existing packages:
@@ -17,7 +18,7 @@ sudo apt-get -y install libx264-dev
 cd
 git clone --depth 1 git://git.videolan.org/x264
 cd x264
-./configure --enable-static
+./configure --enable-static --prefix=/usr/local
 make -j 4
 sudo make install
 #sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
@@ -29,7 +30,7 @@ cd
 wget http://downloads.sourceforge.net/opencore-amr/fdk-aac-0.1.0.tar.gz
 tar xzvf fdk-aac-0.1.0.tar.gz
 cd fdk-aac-0.1.0
-./configure
+./configure --prefix=/usr/local
 make -j 4
 sudo checkinstall --pkgname=fdk-aac --pkgversion="0.1.0" --backup=no \
   --deldoc=yes --fstrans=no --default
@@ -38,7 +39,7 @@ sudo checkinstall --pkgname=fdk-aac --pkgversion="0.1.0" --backup=no \
 cd
 git clone --depth 1 https://chromium.googlesource.com/webm/libvpx 
 cd libvpx
-./configure
+./configure --prefix=/usr/local
 make -j 4
 sudo make install
 #sudo checkinstall --pkgname=libvpx --pkgversion="1:$(date +%Y%m%d%H%M)-git" --backup=no \
@@ -51,7 +52,7 @@ sudo make install
 # what this means.
 cd ~/x264
 make distclean
-./configure --enable-static
+./configure --enable-static --prefix=/usr/local
 make -j 4
 sudo make install
 #sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
@@ -64,7 +65,7 @@ git clone --depth 1 git://source.ffmpeg.org/ffmpeg
 cd ffmpeg
 ./configure --enable-gpl --enable-libfaac --enable-libmp3lame --enable-libopencore-amrnb \
   --enable-libopencore-amrwb --enable-librtmp --enable-libtheora --enable-libvorbis \
-    --enable-libvpx --enable-libx264 --enable-nonfree --enable-version3 
+    --enable-libvpx --enable-libx264 --enable-nonfree --enable-version3 --prefix=/usr/local
 make -j 4
 sudo make install
 #sudo checkinstall --pkgname=ffmpeg --pkgversion="5:$(date +%Y%m%d%H%M)-git" --backup=no \
